@@ -1,0 +1,115 @@
+{
+  "name": "Birdeye_Trending_Bot_Maretox",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        -256
+      ],
+      "id": "d671d978-845f-4c84-8736-f9480a4ee1db",
+      "name": "Cada 1 Minuto (Requisito 50 Calls)"
+    },
+    {
+      "parameters": {
+        "url": "https://public-api.birdeye.so/defi/token_trending",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-KEY",
+              "value": "8b9e7e568b8e48d197347cb5bb47a959"
+            },
+            {
+              "name": "x-chain",
+              "value": "solana"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        944,
+        -256
+      ],
+      "id": "46de4017-b14f-4bde-9fa1-9e865595012d",
+      "name": "Birdeye API"
+    },
+    {
+      "parameters": {
+        "chatId": "1788824286",
+        "text": "=🚀 *ALERTA TRENDING - BIRDEYE* 🚀\n\n🔥 *Token:* {{$json.data.tokens[0].name}} ({{$json.data.tokens[0].symbol}})\n💎 *Rank:* #{{$json.data.tokens[0].rank}}\n💰 *Liquidez:* ${{$json.data.tokens[0].liquidity.toLocaleString()}}\n📊 *Volumen 24h:* ${{$json.data.tokens[0].volume24hUSD.toLocaleString()}}\n\n🔗 *Ver en Birdeye:* https://birdeye.so/token/{{$json.data.tokens[0].address}}?chain=solana\n\n🤖 _Bot by Maretox Labs_ ",
+        "additionalFields": {
+          "appendAttribution": false,
+          "message_thread_id": 0
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        -256
+      ],
+      "id": "d4a114d9-f444-446a-a978-97582fb066e1",
+      "name": "Telegram Alert",
+      "webhookId": "84fd4418-af16-461d-9404-f7fbb606c7af",
+      "credentials": {
+        "telegramApi": {
+          "id": "pwgercVoLK2y4gih",
+          "name": "test-crypto"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Cada 1 Minuto (Requisito 50 Calls)": {
+      "main": [
+        [
+          {
+            "node": "Birdeye API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Birdeye API": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a5229b9a-8abe-4bd8-b5cd-dac810610955",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4ae8ec980bb532eb5483df3216586a99341a802500d67ffb4f0c3fc2dadaa5b2"
+  },
+  "id": "2yPgQFw7GxnK2jlg",
+  "tags": []
+}
