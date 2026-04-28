@@ -6,8 +6,8 @@
         "rule": {
           "interval": [
             {
-              "field": "seconds",
-              "secondsInterval": 10
+              "field": "Minutes",
+              "secondsInterval": 1
             }
           ]
         }
@@ -19,7 +19,7 @@
         -256
       ],
       "id": "d671d978-845f-4c84-8736-f9480a4ee1db",
-      "name": "Cada 1 Minuto (Requisito 50 Calls)"
+      "name": "1Min"
     },
     {
       "parameters": {
